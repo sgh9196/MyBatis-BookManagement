@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.mybatis.persistence.BookMapper">
+	
+	<!-- Book 테이블 생성 -->
+	<update id="createBookTable">
+		CREATE TABLE IF NOT EXISTS book
+		(
+		BOOK_NO INT NOT NULL AUTO_INCREMENT,
+		BOOK_NAME VARCHAR(100) NOT NULL,
+		BOOK_GENRE VARCHAR(40) NOT NULL,
+		BOOK_PUBLISHER VARCHAR(40) NOT NULL,
+		BOOK_AUTHOR CHAR(30) NOT NULL,
+		BOOK_DATE DATE NOT NULL,
+		BOOK_ISBN VARCHAR(20) NOT NULL,
+		PRIMARY KEY(BOOK_NO, BOOK_ISBN)
+		)
+	</update>
+
+	<insert id="bookInsert" parameterType="book">
+		INSERT INTO book (BOOK_NAME, BOOK_GENRE, BOOK_PUBLISHER, BOOK_AUTHOR, BOOK_DATE, BOOK_ISBN)
+		VALUES(#{bookName}, #{bookGenre}, #{bookPublisher}, #{bookAuthor}, #{bookDate}, #{bookIsbn})
+	</insert>
+	
+</mapper>
+
+<!-- 
+
+	CREATE TABLE IF NOT EXISTS book
+	(
+	BOOK_NO INT NOT NULL AUTO_INCREMENT,
+	BOOK_NAME VARCHAR(100) NOT NULL,
+	BOOK_GENRE VARCHAR(40) NOT NULL,
+	BOOK_PUBLISHER VARCHAR(40) NOT NULL,
+	BOOK_AUTHOR CHAR(30) NOT NULL,
+	BOOK_DATE DATE NOT NULL,
+	BOOK_ISBN VARCHAR(20) NOT NULL,
+	PRIMARY KEY(BOOK_NO, BOOK_ISBN)
+	)
+
+
+
+
+
+도서명
+장르
+출판사명
+저자명
+출판년월일
+페이지수
+도서번호(isbn)
+ -->
