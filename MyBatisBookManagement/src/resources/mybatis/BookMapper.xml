@@ -25,25 +25,54 @@
 		VALUES(#{bookName}, #{bookGenre}, #{bookPublisher}, #{bookAuthor}, #{bookDate}, #{bookIsbn})
 	</insert>
 	
+	<select id="bookNameSelect" parameterType="book" resultType="book">
+		SELECT * 
+		FROM book
+		WHERE BOOK_NAME = #{bookName}
+	</select>
+	
+	
+	
+	
+	
+	<update id="bookNameUpdate" parameterType="book">
+		UPDATE book
+		SET BOOK_NAME = #{bookName}
+		WHERE BOOK_ISBN = #{bookIsbn}
+	</update>
+	
+	<update id="bookGenreUpdate" parameterType="book">
+		UPDATE book
+		SET BOOK_GENRE = #{bookGenre}
+		WHERE BOOK_ISBN = #{bookIsbn}
+	</update>
+	
+	<update id="bookPublisherUpdate" parameterType="book">
+		UPDATE book
+		SET BOOK_PUBLISHER = #{bookPublisher}
+		WHERE BOOK_ISBN = #{bookIsbn}
+	</update>
+	
+	<update id="bookAuthorUpdate" parameterType="book">
+		UPDATE book
+		SET BOOK_AUTHOR = #{bookAuthor}
+		WHERE BOOK_ISBN = #{bookIsbn}
+	</update>
+	
+	<update id="bookDateUpdate" parameterType="book">
+		UPDATE book
+		SET BOOK_DATE = #{bookDate}
+		WHERE BOOK_ISBN = #{bookIsbn}
+	</update>
+	
+	<delete id="bookDelete" parameterType="book">
+		DELETE FROM book
+		WHERE BOOK_ISBN = #{bookIsbn}
+	</delete>
+	
 </mapper>
 
-<!-- 
-
-	CREATE TABLE IF NOT EXISTS book
-	(
-	BOOK_NO INT NOT NULL AUTO_INCREMENT,
-	BOOK_NAME VARCHAR(100) NOT NULL,
-	BOOK_GENRE VARCHAR(40) NOT NULL,
-	BOOK_PUBLISHER VARCHAR(40) NOT NULL,
-	BOOK_AUTHOR CHAR(30) NOT NULL,
-	BOOK_DATE DATE NOT NULL,
-	BOOK_ISBN VARCHAR(20) NOT NULL,
-	PRIMARY KEY(BOOK_NO, BOOK_ISBN)
-	)
-
-
-
-
+<!--
 
 도서명
 장르
