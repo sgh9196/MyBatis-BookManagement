@@ -8,7 +8,6 @@ public class Book {
 	private String bookPublisher;
 	private String bookAuthor;
 	private String bookDate;
-	private String bookIsbn;
 	
 	public int getBookNo() { return bookNo; }
 	public void setBookNo(int bookNo) { this.bookNo = bookNo; }
@@ -28,13 +27,10 @@ public class Book {
 	public String getBookDate() { return bookDate; }
 	public void setBookDate(String bookDate) { this.bookDate = bookDate; }
 	
-	public String getBookIsbn() { return bookIsbn; }
-	public void setBookIsbn(String bookIsbn) { this.bookIsbn = bookIsbn; }
-	
 	@Override
 	public String toString() {
 		return "Book [bookNo=" + bookNo + ", bookName=" + bookName + ", bookGenre=" + bookGenre + ", bookPublisher="
-				+ bookPublisher + ", bookAuthor=" + bookAuthor + ", bookDate=" + bookDate + ", bookIsbn=" + bookIsbn
+				+ bookPublisher + ", bookAuthor=" + bookAuthor + ", bookDate=" + bookDate + ""
 				+ "]";
 	}
 	

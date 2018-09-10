@@ -19,7 +19,6 @@ public class BookController {
 			print("출판사 : "); book.setBookPublisher(sc.next());
 			print("저자명 : "); book.setBookAuthor(sc.next());
 			print("출판일 : "); book.setBookDate(sc.next());
-			print("ISBN : "); book.setBookIsbn(sc.next());
 	
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -30,6 +29,16 @@ public class BookController {
 	
 	public Book bookNameSelect(Book book) {
 		print("도서명 : "); book.setBookName(sc.next());
+		return book;
+	}
+	
+	public Book bookPublisherSelect(Book book) {
+		print("출판사 : "); book.setBookPublisher(sc.next());
+		return book;
+	}
+	
+	public Book bookAuthorSelect(Book book) {
+		print("저자명 : "); book.setBookAuthor(sc.next());
 		return book;
 	}
 	
@@ -59,7 +68,7 @@ public class BookController {
 	}
 	
 	public Book bookDelete(Book book) {
-		print("삭제 할 도서의 ISBN >> "); book.setBookIsbn(sc.next());
+		print("삭제 할 도서의 ISBN >> "); book.setBookNo(sc.nextInt());
 		return book;
 	}
 	

@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import org.apache.ibatis.io.Resources;
@@ -61,8 +63,9 @@ public class Executor implements MappingInfo {
 		book = bookController.bookInsert();
 
 		sqlSession.insert(parameter + "BookMapper.bookInsert", book);
-		sqlSession.commit();
 
+		OKClose();
+		
 		transactionClose();
 
 	}
@@ -73,14 +76,43 @@ public class Executor implements MappingInfo {
 			
 			transactionOpen();
 			
+			System.out.print("1. 도서명   2. 출판사   3. 저자명\n>> ");
+			
+			ArrayList<Book> ary = null;
+			
 			bookController = new BookController();
 			book = new Book();
 			
-			book = bookController.bookNameSelect(book);
+			switch(sc.nextInt()) {
+				case 1:
+					book = bookController.bookNameSelect(book);
+					ary = (ArrayList) sqlSession.selectList(parameter+"BookMapper.bookNameSelect", book);
+					//book = sqlSession.selectOne(parameter+"BookMapper.bookNameSelect", book);
+					break;
+				case 2:
+					
+					book = bookController.bookPublisherSelect(book);
+					ary = (ArrayList) sqlSession.selectList(parameter+"BookMapper.bookPublisherSelect", book);
+					//book = sqlSession.selectOne(parameter+"BookMapper.bookPublisherSelect", book);
+					//System.out.println(ary.toString());
+					break;
+				case 3:
+					book = bookController.bookAuthorSelect(book);
+					ary = (ArrayList) sqlSession.selectList(parameter+"BookMapper.bookAuthorSelect", book);
+					//book = sqlSession.selectOne(parameter+"BookMapper.bookAuthorSelect", book);
+					break;
+			}
 			
-			book = sqlSession.selectOne(parameter+"BookMapper.bookNameSelect", book);
+			if(ary!=null) {
 			
-			System.out.println(book.toString());
+				Iterator itr = ary.iterator();
+				
+				while(itr.hasNext()) {
+					String str = String.valueOf(itr.next());
+					System.out.println(str);
+				}
+				
+			}
 			
 			transactionClose();
 			
@@ -103,7 +135,7 @@ public class Executor implements MappingInfo {
 
 			book = new Book();
 			print("수정 할 도서의 ISBN >> ");
-			book.setBookIsbn(sc.next());
+			book.setBookNo(sc.nextInt());
 
 			System.out.print("1. 도서명   2. 장르   3. 출판사   4. 저자명   5. 출판일\n>> ");
 
@@ -166,12 +198,26 @@ public class Executor implements MappingInfo {
 
 	}
 
+	public static void OKClose() {
+		
+		System.out.println("1. 확정    2. 취소");
+		switch(sc.nextInt()) {
+			case 1:
+				sqlSession.commit();
+				print("SUCCESS > 완료\n");
+				break;
+			case 2:
+				sqlSession.rollback();
+				break;
+		}
+		
+	}
+	
 	public static void checkISBN(int result) {
 		if (result == 0)
 			print("ERR > 존재하는 ISBN이 없음\n");
 		else {
-			print("SUCCESS > 완료\n");
-			sqlSession.commit();
+			OKClose();
 		}
 	}
 

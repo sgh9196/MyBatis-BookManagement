@@ -15,59 +15,67 @@
 		BOOK_PUBLISHER VARCHAR(40) NOT NULL,
 		BOOK_AUTHOR CHAR(30) NOT NULL,
 		BOOK_DATE DATE NOT NULL,
-		BOOK_ISBN VARCHAR(20) NOT NULL,
-		PRIMARY KEY(BOOK_NO, BOOK_ISBN)
+		PRIMARY KEY(BOOK_NO)
 		)
 	</update>
 
 	<insert id="bookInsert" parameterType="book">
-		INSERT INTO book (BOOK_NAME, BOOK_GENRE, BOOK_PUBLISHER, BOOK_AUTHOR, BOOK_DATE, BOOK_ISBN)
-		VALUES(#{bookName}, #{bookGenre}, #{bookPublisher}, #{bookAuthor}, #{bookDate}, #{bookIsbn})
+		INSERT INTO book (BOOK_NAME, BOOK_GENRE, BOOK_PUBLISHER, BOOK_AUTHOR, BOOK_DATE)
+		VALUES(#{bookName}, #{bookGenre}, #{bookPublisher}, #{bookAuthor}, #{bookDate})
 	</insert>
 	
-	<select id="bookNameSelect" parameterType="book" resultType="book">
+	<select id="bookNameSelect" parameterType="book" resultType="java.util.HashMap">
 		SELECT * 
 		FROM book
 		WHERE BOOK_NAME = #{bookName}
 	</select>
 	
-	
-	
+	<select id="bookAuthorSelect" parameterType="book" resultType="java.util.HashMap">
+		SELECT *
+		FROM book
+		WHERE BOOK_AUTHOR = #{bookAuthor}
+	</select>
+		
+	<select id="bookPublisherSelect" parameterType="book" resultType="java.util.HashMap">
+		SELECT *
+		FROM book
+		WHERE BOOK_PUBLISHER = #{bookPublisher}
+	</select>
 	
 	
 	<update id="bookNameUpdate" parameterType="book">
 		UPDATE book
 		SET BOOK_NAME = #{bookName}
-		WHERE BOOK_ISBN = #{bookIsbn}
+		WHERE BOOK_NO = #{bookNo}
 	</update>
 	
 	<update id="bookGenreUpdate" parameterType="book">
 		UPDATE book
 		SET BOOK_GENRE = #{bookGenre}
-		WHERE BOOK_ISBN = #{bookIsbn}
+		WHERE BOOK_NO = #{bookNo}
 	</update>
 	
 	<update id="bookPublisherUpdate" parameterType="book">
 		UPDATE book
 		SET BOOK_PUBLISHER = #{bookPublisher}
-		WHERE BOOK_ISBN = #{bookIsbn}
+		WHERE BOOK_NO = #{bookNo}
 	</update>
 	
 	<update id="bookAuthorUpdate" parameterType="book">
 		UPDATE book
 		SET BOOK_AUTHOR = #{bookAuthor}
-		WHERE BOOK_ISBN = #{bookIsbn}
+		WHERE BOOK_NO = #{bookNo}
 	</update>
 	
 	<update id="bookDateUpdate" parameterType="book">
 		UPDATE book
 		SET BOOK_DATE = #{bookDate}
-		WHERE BOOK_ISBN = #{bookIsbn}
+		WHERE BOOK_NO = #{bookNo}
 	</update>
 	
 	<delete id="bookDelete" parameterType="book">
 		DELETE FROM book
-		WHERE BOOK_ISBN = #{bookIsbn}
+		WHERE BOOK_NO = #{bookNo}
 	</delete>
 	
 </mapper>
